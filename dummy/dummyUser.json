@@ -1,0 +1,15 @@
+{
+	"_id": "A-01",
+	"user-name": "Dio Brando",
+	"email": "dbrando@gmail.com",
+	"password": "password",
+	"gratis-space": 0,
+	"subscribed-space": 0,
+	"used-space": 0,
+	"subscribed-at": "26/06/2022",
+	"end-of-subscription": "26/06/2022",
+	"init-golder": "initFolder",
+	"recycle-bin": [],
+	"created-at": "26/06/2022",
+	"updated-at": "26/06/2022"
+}
