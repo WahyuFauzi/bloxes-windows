@@ -6,6 +6,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
+	window.api.test();
 	// Sidebar width is 20% and min-width is 183px, should i implement dependency injection?
 	// Main(inside routes) width is 80%
 	return (

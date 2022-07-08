@@ -1,21 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import contextReducer from './contextMenuSlice';
+import contextReducer from './contextSlice';
 
-export default configureStore({
+export const store = configureStore({
 	reducer: {
-		contextReducer: contextReducer,
+		context: contextReducer,
 	},
 });
-
-//export const store = configureStore({
-//	reducer: {},
-//});
-
-//import { configureStore } from '@reduxjs/toolkit';
-//import counterReducer from './counterSlice';
-
-//export const store = configureStore({
-//	reducer: {
-//		counter: counterReducer,
-//	},
-//});

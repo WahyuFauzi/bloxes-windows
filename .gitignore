@@ -11,6 +11,11 @@
 # production
 /build
 
+# environment
+/environment
+
+#currently unused
+/backend/ipcMain.js
 # misc
 .DS_Store
 .env.local
