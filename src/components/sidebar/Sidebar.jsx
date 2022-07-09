@@ -17,11 +17,11 @@ export default function Sidebar() {
 							Files
 						</li>
 					</Link>
-					<Link to="recyclebin">
+					{/*<Link to="recyclebin">
 						<li className="h-8 pt-1 mx-4 mt-2 rounded cursor-pointer hover:bg-accent-color">
 							Recycle Bin
 						</li>
-					</Link>
+					</Link>*/}
 				</ul>
 			</div>
 		</div>

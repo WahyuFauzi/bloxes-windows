@@ -1,9 +1,0 @@
-[
-	{ "id": "01", "folder_name": "folder1", "nested_folders": [], "items": [] },
-	{
-		"id": "folder",
-		"folder_name": "Init Folder",
-		"nested_folders": [],
-		"items": []
-	}
-]
