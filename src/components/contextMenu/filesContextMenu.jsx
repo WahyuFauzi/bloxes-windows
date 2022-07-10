@@ -1,14 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { showedFile } from '../../redux/contextSlice';
-//import { showed } from '../../redux/contextMenuSlice';
 
 export default function FilesContextMenu(props) {
 	const states = useSelector((state) => state.context.renderConditionFile);
 	const dispatch = useDispatch();
 	let classes;
 	if (states === false) {
-		classes = 'text-text-primary bg-dark-primary absolute hidden rounded';
+		classes = 'hidden';
 	} else if (states === true) {
 		classes = 'text-text-primary bg-dark-primary absolute rounded';
 	}

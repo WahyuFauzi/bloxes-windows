@@ -1,9 +1,8 @@
 //TODO this code sucks, make it simpler and change to typescript if applicable
-const { uploadItem, downloadItem } = require('./backend/itemHelper');
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
-//require('./backend/ipcMain');
+require('./backend/ipcMain');
 //app.disableHardwareAcceleration(); TODO find what does this code use for
 
 let win;
@@ -26,9 +25,8 @@ const createWindow = () => {
 };
 
 const init = () => {
-	//uploadItem('folder', 'item.pdf');
-	//downloadItem('fikri.pdf', 'ctq_7-byb2C1ukf6GJY8h');
 	createWindow();
 };
-
 app.on('ready', init);
+
+app.on('activate', () => {});

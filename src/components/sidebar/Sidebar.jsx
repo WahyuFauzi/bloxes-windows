@@ -8,7 +8,7 @@ export default function Sidebar() {
 		>
 			<div className="w-full h-2/5 text-center">
 				<div className="w-full h-3/4 bg-black"></div>
-				<p className="mt-4">Name</p>
+				<p className="mt-4">Bloxes</p>
 			</div>
 			<div>
 				<ul className="text-center">

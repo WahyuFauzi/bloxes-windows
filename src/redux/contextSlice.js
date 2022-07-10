@@ -7,8 +7,6 @@ export const contextSlice = createSlice({
 	initialState: {
 		renderConditionFile: false,
 		renderConditionFileItem: false,
-		renderConditionTrash: false,
-		renderConditionTrashItem: false,
 	},
 	reducers: {
 		showedFile: (state, action) => {
@@ -17,16 +15,9 @@ export const contextSlice = createSlice({
 		showedFileItem: (state, action) => {
 			state.renderConditionFileItem = action.payload;
 		},
-		showedTrash: (state, action) => {
-			state.renderConditionTrash = action.payload;
-		},
-		showedTrashItem: (state, action) => {
-			state.renderConditionTrashItem = action.payload;
-		},
 	},
 });
 
-export const { showedFile, showedFileItem, showedTrash, showedTrashItem } =
-	contextSlice.actions;
+export const { showedFile, showedFileItem } = contextSlice.actions;
 
 export default contextSlice.reducer;
