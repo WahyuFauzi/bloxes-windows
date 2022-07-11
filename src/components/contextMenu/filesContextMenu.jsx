@@ -1,6 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import FrontEndHelper from '../../misc/FrontEndHelper';
 import { showedFile } from '../../redux/contextSlice';
+
+const helper = new FrontEndHelper();
 
 export default function FilesContextMenu(props) {
 	const states = useSelector((state) => state.context.renderConditionFile);
@@ -25,14 +28,16 @@ export default function FilesContextMenu(props) {
 			}}
 		>
 			<div className="text-center rounded cursor-pointer">
-				<div
-					className="w-full h-full rounded hover:bg-accent-color"
-					onClick={() => {
-						window.api.openFile();
-					}}
-				>
+				<div className="w-full h-full rounded hover:bg-accent-color">
 					<ul>
-						<li>upload file</li>
+						<li
+							onClick={() => {
+								helper.setNewFolder('folder');
+								dispatch(showedFile(false));
+							}}
+						>
+							upload file
+						</li>
 						<li>new folder</li>
 					</ul>
 				</div>

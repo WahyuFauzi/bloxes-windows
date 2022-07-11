@@ -6,12 +6,13 @@ import Document from '../../images/document';
 import Folder from '../../images/folder';
 import FilesContextMenu from '../contextMenu/filesContextMenu';
 import './Files.css';
+import ItemsContextMenu from '../contextMenu/itemContextMenu';
 
 // TODO consider modularize the mapping function
+// TODO this code looks like spaghetti except that i dont like it
 
 export default function Header() {
 	const files = useSelector((state) => state.current.currentFolder.items);
-	const states = useSelector((state) => state.context.renderConditionFileItem);
 	const folders = useSelector(
 		(state) => state.current.currentFolder.nestedFolders
 	);
@@ -20,19 +21,7 @@ export default function Header() {
 	const [xPosition, setXPosition] = useState(0);
 	const [yPosition, setYPosition] = useState(0);
 
-	const handleClick = (e) => {
-		e.preventDefault();
-		e.stopPropagation();
-		e.pageX + 120 > window.innerWidth
-			? setXPosition(window.innerWidth - 140)
-			: setXPosition(e.pageX);
-		e.pageY + 80 > window.innerHeight
-			? setYPosition(window.innerHeight - 90)
-			: setYPosition(e.pageY - 20);
-		dispatch(showedFile(true));
-	};
-
-	const handleClickFiles = (e, callback) => {
+	const handleClick = (e, callback) => {
 		e.preventDefault();
 		e.stopPropagation();
 		e.pageX + 120 > window.innerWidth
@@ -43,6 +32,7 @@ export default function Header() {
 			: setYPosition(e.pageY - 20);
 		callback();
 	};
+
 	const fileList = files.map((i, index) => {
 		return (
 			<div
@@ -54,6 +44,7 @@ export default function Header() {
 			</div>
 		);
 	});
+
 	const folderList = folders.map((j, index) => {
 		return (
 			<div
@@ -67,19 +58,22 @@ export default function Header() {
 	});
 
 	useEffect(() => {
-		const item = document.querySelectorAll('.items').forEach((item) => {
+		const item = document.querySelectorAll('.items');
+		item.forEach((item) => {
 			item.addEventListener('contextmenu', function (e) {
-				handleClickFiles(e, () => {
-					//dispatch(showedFileItem(true));
-					console.log('test');
+				handleClick(e, () => {
+					dispatch(showedFileItem(true));
 				});
 			});
 		});
 		const files = document.getElementById('files');
-		files.addEventListener('contextmenu', handleClick);
+		files.addEventListener('contextmenu', (e) => {
+			handleClick(e, () => {
+				dispatch(showedFile(true));
+			});
+		});
 		return () => {
-			files.removeEventListener('contextmenu', handleClick);
-			//item.removeEventListener('contextmenu', handleClickFiles);
+			document.removeEventListener('contextmenu', handleClick);
 		};
 	});
 
@@ -94,6 +88,7 @@ export default function Header() {
 			{folderList}
 			{fileList}
 			<FilesContextMenu left={xPosition} top={yPosition} />
+			<ItemsContextMenu left={xPosition} top={yPosition} />
 		</div>
 	);
 }

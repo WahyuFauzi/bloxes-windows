@@ -1,8 +1,10 @@
 //TODO this code sucks, make it simpler and change to typescript if applicable
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const fs = require('fs');
+const { default: axios } = require('axios');
 
-require('./backend/ipcMain');
+require('./backend/IpcMain');
 //app.disableHardwareAcceleration(); TODO find what does this code use for
 
 let win;
@@ -22,11 +24,13 @@ const createWindow = () => {
 	});
 
 	win.loadURL('http://localhost:3000');
+	win.webContents.openDevTools();
 };
 
 const init = () => {
 	createWindow();
 };
+
 app.on('ready', init);
 
 app.on('activate', () => {});
