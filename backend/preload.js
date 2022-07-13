@@ -1,18 +1,25 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('api', {
-	getUserData: () => ipcRenderer.invoke('get-user-data'),
+	init: () => ipcRenderer.send('init'),
 
-	uploadItem: (folder) => ipcRenderer.invoke('upload-item', folder),
+	uploadItem: (folder) => ipcRenderer.send('upload-item', folder),
 
-	downloadItem: (itemId) => ipcRenderer.invoke('download-item', itemId),
+	downloadItem: (item) => ipcRenderer.send('download-item', item),
 
-	deleteItem: (folder, itemId) =>
-		ipcRenderer.invoke('delete-item', folder, itemId),
+	deleteItem: (folder, item) => ipcRenderer.send('delete-item', folder, item),
 
 	postFolder: (folderName, folder) =>
-		ipcRenderer.invoke('post-folder', folderName, folder),
+		ipcRenderer.send('post-folder', folderName, folder),
+
+	getFolder: (folderId) => {
+		ipcRenderer.send('get-folder', folderId);
+	},
 
 	deleteFolder: (folderId, folder) =>
-		ipcRenderer.invoke('delete-folder', folderId, folder),
+		ipcRenderer.send('delete-folder', folderId, folder),
+
+	receiveFolder: (callback) => ipcRenderer.once('receive-folder', callback),
+
+	setUser: (callback) => ipcRenderer.once('set-user', callback),
 });

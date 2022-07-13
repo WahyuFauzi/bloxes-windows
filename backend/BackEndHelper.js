@@ -21,11 +21,6 @@ module.exports = class BackEndHelper {
 		return file;
 	}
 
-	getFileSize(filePath) {
-		const fileSize = fs.statSync(filePath).size;
-		return fileSize;
-	}
-
 	getFolder() {
 		const file = dialog.showOpenDialog({
 			properties: ['openDirectory'],
@@ -33,7 +28,35 @@ module.exports = class BackEndHelper {
 		return file;
 	}
 
-	copyItemToLocation(itemId, downloadLocation) {
+	getListFolders(folderId, listFolder, undiscovered, callback) {
+		listFolder.push(folderId);
+		if (undiscovered.length > 0) {
+			this.deleteArrayByValue(undiscovered, folderId);
+			axios.getFolder(folderId).then((e) => {
+				undiscovered.push(e.data.nested_folders);
+				for (const i in e.data.nested_folders) {
+					this.getListFolders(
+						e.data.nested_folders[i],
+						listFolder,
+						undiscovered,
+						callback
+					);
+				}
+			});
+		} else {
+			callback(listFolder);
+		}
+	}
+
+	getListItem(listFolder) {
+		let listItemId = [];
+		for (const i in listFolder) {
+			listItemId.push(listFolder[i].items._id);
+		}
+		return listItemId;
+	}
+
+	downloadItem(itemId, downloadLocation) {
 		fs.writeFile(
 			downloadLocation,
 			path.join(__dirname, `../dummy/dummyCloud/${itemId}`),
@@ -43,38 +66,20 @@ module.exports = class BackEndHelper {
 		);
 	}
 
+	uploadItem(itemId, itemPath) {
+		fs.writeFile(
+			path.join(__dirname, `../dummy/dummyCloud/${itemId}`),
+			itemPath,
+			(err) => {
+				if (err) throw err;
+			}
+		);
+	}
+
 	deleteItem(itemId) {
-		fs.unlink(`../dummy/dummyCloud/${itemId}`, (err) => {
+		fs.unlink(path.join(__dirname, `../dummy/dummyCloud/${itemId}`), (err) => {
 			if (err) throw err;
 		});
-	}
-
-	getListNestedFolder(listFolderId, folder) {
-		listFolderId.push(folder._id);
-		for (const i in folder.nested_folders) {
-			axios.getFolder(folder.nested_folders[i]).then((response) => {
-				this.getListNestedFolder(listFolderId, response.data);
-			});
-		}
-	}
-
-	deleteArrayByValue(arr, value) {
-		const index = arr.indexOf(value);
-		if (index !== -1) {
-			arr.splice(index, 1);
-			return arr;
-		}
-	}
-
-	getListItem(listItem, listFolderId) {
-		for (const i in listFolderId) {
-			axios.getFolder(listFolderId[i]).then((response) => {
-				const listItemResponse = response.data.items;
-				for (const j in listItemResponse) {
-					listItem.push(listItemResponse[j]);
-				}
-			});
-		}
 	}
 
 	updateDummyUser(newUserData) {
@@ -82,5 +87,14 @@ module.exports = class BackEndHelper {
 			path.join(__dirname, '../dummy/dummyUser.json'),
 			JSON.stringify(newUserData)
 		);
+	}
+
+	deleteArrayByValue(arr, value) {
+		const indexOfObject = arr.findIndex((object) => {
+			return object._id === value;
+		});
+
+		arr.splice(indexOfObject, 1);
+		return arr;
 	}
 };

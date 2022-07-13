@@ -2,7 +2,7 @@
 	"name": "bloxes-windows",
 	"version": "0.1.0",
 	"private": true,
-	"main": "main.js",
+	"main": "public/main.js",
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.8.3",
 		"axios": "^0.27.2",
@@ -22,7 +22,8 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"electron:serve": "concurrently -k \"npm start\" \"npm run electron:start\"",
-		"electron:start": "wait-on tcp:3000 && electronmon .",
+		"electron:start": "wait-on tcp:3000 && electron .",
+		"electron": "electron .",
 		"electronmon": "electronmon ."
 	},
 	"eslintConfig": {
@@ -51,6 +52,8 @@
 		"electron": "^19.0.6",
 		"electron-builder": "^23.1.0",
 		"electronmon": "^2.0.2",
+		"jest": "^28.1.2",
+		"react-test-renderer": "^18.2.0",
 		"wait-on": "^6.0.1"
 	}
 }

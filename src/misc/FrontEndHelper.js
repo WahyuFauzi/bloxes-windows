@@ -1,31 +1,46 @@
-import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/userSlice';
-import { setFolder } from '../redux/currentSlice';
-
 //NOTE code what you actually need it
 
 export default class FrontEndHelper {
-	dispatch = useDispatch();
-	async getUserData() {
-		const user = await window.api.getUserData();
-		this.dispatch(setUser(user));
+	async getUserData(callback) {
+		window.api.init();
+		window.api.setUser((event, value) => callback(value));
 	}
 
-	async setCurrentFolder(folderId) {
-		const folder = await window.api.getFolder(folderId);
-		this.dispatch(setFolder(folder));
+	async setFolderInit(callback) {
+		window.api.receiveFolder((event, value) => {
+			callback(value);
+		});
 	}
 
-	async createNewFolder(folderId, folderName) {}
-
-	async deleteFolder(folderId, folderName) {}
-
-	async uploadItem(folderId) {
-		const folder = await window.api.uploadItem();
-		this.dispatch(setFolder(folder));
+	async uploadItem(folder, callback) {
+		window.api.uploadItem(folder);
+		window.api.receiveFolder((event, value) => {
+			callback(value);
+		});
 	}
 
-	async downloadItem(itemId) {}
+	async downloadItem(item) {
+		window.downloadItem(item);
+	}
 
-	async deleteItem(folderId, itemId) {}
+	async deleteItem(folder, item, callback) {
+		window.api.deleteItem(folder, item);
+		window.api.receiveFolder((event, value) => {
+			callback(value);
+		});
+	}
+
+	async setCurrentFolder(folder, callback) {
+		window.api.getFolder(folder._id);
+		window.api.receiveFolder((event, value) => {
+			callback(value);
+		});
+	}
+
+	async createFolder(folderName, folder, callback) {
+		window.api.postFolder(folderName, folder);
+		window.api.receiveFolder((event, value) => {
+			callback(value);
+		});
+	}
 }

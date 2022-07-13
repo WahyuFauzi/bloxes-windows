@@ -1,0 +1,41 @@
+item 1: TRNPLcVEPowUgtI2thJTZ
+item 2: IGrnfPVr0pFqKnw_uphy5
+item 3: rPPCVnAgRyXd6CA8bYrCO
+
+folder 1: UM2H00xs_M4Zh7I-Q2N2b
+folder 2: 7nPBy8xTCLk-sCRamkvhh
+
+
+ipcMain.on('upload-item', async (event, folder) => {
+	const file = await helper.getLocalFile();
+	//win.webContents.send('update-current-folder', file);
+});
+
+ipcMain.once('delete-item', async (event, itemId, folder) => {
+  
+});
+
+ipcMain.once('download-item', async (event, itemId) => {
+
+});
+
+ipcMain.once('create-folder', async (event, folder) => {
+
+});
+
+ipcMain.on('delete-folder', async (event, folderId, folder) => {
+	let listFolder;
+	let undiscovered;
+
+	helper.getListFolders(folderId, listFolder, undiscovered, async (e) => {
+		const listItem = await helper.getListItem();
+		console.log(listItem);
+	});
+
+	const newFolder = await helper.deleteArrayByValue(
+		folder.nested_folders,
+		folderId
+	);
+
+	win.webContents.send('get-folder', newFolder);
+});

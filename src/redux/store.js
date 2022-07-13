@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import contextReducer from './contextSlice';
 import currentReducer from './currentSlice';
+import contextReducer from './contextSlice';
 import userReducer from './userSlice';
 
 export const store = configureStore({

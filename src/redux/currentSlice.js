@@ -5,22 +5,22 @@ export const currentSlice = createSlice({
 	initialState: {
 		currentPath: [],
 		currentFolder: {
-			_id: 'A-01',
-			folderName: 'init folder',
-			nestedFolders: ['folder1', 'folder2'],
-			items: [
-				{ _id: '01', itemName: 'Jotaro' },
-				{ _id: '02', itemName: 'Jonathan' },
-				{ _id: '03', itemName: 'Joseph' },
-			],
+			_id: '',
+			folder_name: '',
+			nested_folders: [],
+			items: [],
 		},
 	},
 	reducers: {
-		setCurrentPath: (state, action) => {
-			state.currentPath = action.payload;
+		addPath: (state, action) => {
+			state.currentPath.push(action.payload);
+		},
+		backPath: (state, action) => {
+			state.currentPath = state.currentPath.pop();
 		},
 		setFolder: (state, action) => {
 			state.currentFolder = action.payload;
+			console.log(state.currentFolder);
 		},
 	},
 });
