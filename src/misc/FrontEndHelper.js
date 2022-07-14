@@ -19,19 +19,20 @@ export default class FrontEndHelper {
 		});
 	}
 
-	async downloadItem(item) {
-		window.downloadItem(item);
+	async downloadItem(itemId) {
+		window.downloadItem(itemId);
 	}
 
-	async deleteItem(folder, item, callback) {
-		window.api.deleteItem(folder, item);
+	async deleteItem(folder, itemId, callback) {
+		window.api.deleteItem(folder, itemId);
 		window.api.receiveFolder((event, value) => {
 			callback(value);
 		});
 	}
 
-	async setCurrentFolder(folder, callback) {
-		window.api.getFolder(folder._id);
+	async setCurrentFolder(folderId, callback) {
+		//console.log(`path is ${folder._id}`);
+		window.api.getFolder(folderId);
 		window.api.receiveFolder((event, value) => {
 			callback(value);
 		});
@@ -39,6 +40,13 @@ export default class FrontEndHelper {
 
 	async createFolder(folderName, folder, callback) {
 		window.api.postFolder(folderName, folder);
+		window.api.receiveFolder((event, value) => {
+			callback(value);
+		});
+	}
+
+	async deleteFolder(folderId, folder, callback) {
+		window.api.deleteFolder(folderId, folder);
 		window.api.receiveFolder((event, value) => {
 			callback(value);
 		});

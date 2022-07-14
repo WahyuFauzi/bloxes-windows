@@ -7,7 +7,8 @@ contextBridge.exposeInMainWorld('api', {
 
 	downloadItem: (item) => ipcRenderer.send('download-item', item),
 
-	deleteItem: (folder, item) => ipcRenderer.send('delete-item', folder, item),
+	deleteItem: (folder, itemId) =>
+		ipcRenderer.send('delete-item', folder, itemId),
 
 	postFolder: (folderName, folder) =>
 		ipcRenderer.send('post-folder', folderName, folder),

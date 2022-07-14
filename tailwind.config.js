@@ -11,6 +11,7 @@ module.exports = {
 			'primary-text': '#212121',
 			'secondary-text': '#757575',
 			'divider-color': '#BDBDBD',
+			white: '#ffffff',
 		},
 		extend: {},
 	},

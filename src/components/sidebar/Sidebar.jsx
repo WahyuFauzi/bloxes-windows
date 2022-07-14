@@ -4,7 +4,7 @@ export default function Sidebar() {
 	return (
 		<div
 			onContextMenu={(e) => e.preventDefault()}
-			className="sidebar pt-6 bg-light-primary text-white"
+			className="sidebar pt-6 bg-light-primary"
 		>
 			<div className="w-full h-2/5 text-center">
 				<div className="w-full h-3/4 bg-black"></div>

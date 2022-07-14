@@ -37,14 +37,30 @@ export default function FilesContextMenu(props) {
 				<div className="text-center rounded cursor-pointer">
 					<div className="w-full h-full rounded ">
 						<ul>
-							<li className="rounded hover:bg-accent-color">upload file</li>
-							<li className="rounded hover:bg-accent-color">new folder</li>
+							<li
+								className="rounded hover:bg-accent-color"
+								onClick={() => {
+									helper.uploadItem(folder, (e) => {
+										dispatch(setFolder(e));
+									});
+								}}
+							>
+								upload file
+							</li>
+							<li
+								className="rounded hover:bg-accent-color"
+								onClick={() => {
+									props.onSetCreateFolderRenderCondition();
+								}}
+							>
+								new folder
+							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		);
-	} else {
+	} else if (renderContext === 'folder') {
 		return (
 			<div
 				style={{
@@ -63,7 +79,58 @@ export default function FilesContextMenu(props) {
 				<div className="text-center rounded cursor-pointer">
 					<div className="w-full h-full rounded ">
 						<ul>
-							<li className="rounded hover:bg-accent-color">delete folder</li>
+							<li
+								className="rounded hover:bg-accent-color"
+								onClick={() => {
+									helper.deleteFolder(props.selectedItemId, folder, (e) => {
+										dispatch(setFolder(e));
+									});
+								}}
+							>
+								delete folder
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		);
+	} else if (renderContext === 'file') {
+		return (
+			<div
+				style={{
+					width: '120px',
+					position: 'absolute',
+					top: props.top,
+					left: props.left,
+				}}
+				className={classes}
+				onMouseLeave={() => {
+					dispatch(
+						setRenderCondition({ renderCondition: false, renderContext: '' })
+					);
+				}}
+			>
+				<div className="text-center rounded cursor-pointer">
+					<div className="w-full h-full rounded ">
+						<ul>
+							<li
+								className="rounded hover:bg-accent-color"
+								onClick={() => {
+									helper.deleteItem(folder, props.selectedItemId, (e) => {
+										dispatch(setFolder(e));
+									});
+								}}
+							>
+								Delete item
+							</li>
+							<li
+								className="rounded hover:bg-accent-color"
+								onClick={() => {
+									helper.downloadItem(props.selectedItemId);
+								}}
+							>
+								Download item
+							</li>
 						</ul>
 					</div>
 				</div>

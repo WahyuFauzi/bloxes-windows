@@ -6,14 +6,20 @@ import { useDispatch } from 'react-redux';
 import FrontEndHelper from './misc/FrontEndHelper';
 import './App.css';
 import { setUser } from './redux/userSlice';
-import { setFolder } from './redux/currentSlice';
+import { addPath, setFolder } from './redux/currentSlice';
 
 const helper = new FrontEndHelper();
+
+//TODO improve using async function
 
 function App() {
 	const dispatch = new useDispatch();
 	helper.getUserData((e) => dispatch(setUser(e)));
-	helper.setFolderInit((e) => dispatch(setFolder(e)));
+	helper.setFolderInit((e) => {
+		dispatch(setFolder(e));
+		console.log(e._id);
+		dispatch(addPath(e._id));
+	});
 
 	// Sidebar width is 20% and min-width is 183px, should i implement dependency injection?
 	// Main(inside routes) width is 80%

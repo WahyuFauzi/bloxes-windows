@@ -82,24 +82,21 @@ ipcMain.on('download-item', (event, item) => {
 	helper.downloadItem(itemId, downloadLocation);
 });
 
-ipcMain.on('delete-item', (event, folder, item) => {
+ipcMain.on('delete-item', (event, folder, itemId) => {
 	let listItem = [];
-	console.log(folder);
 
 	for (const i in folder.items) {
 		listItem.push(folder.items[i]);
 	}
 
-	const newListItem = helper.deleteArrayByValue(listItem, item._id);
+	const newListItem = helper.deleteArrayByValue(listItem, itemId);
 
-	axios.deleteItem(item._id).then(() => {
-		helper.deleteItem(item._id);
+	axios.deleteItem(itemId).then(() => {
+		helper.deleteItem(itemId);
 	});
 
 	////TODO update folder
 	folder.items = newListItem;
-
-	console.log(folder);
 	updateFolder(folder);
 });
 
@@ -116,25 +113,24 @@ ipcMain.once('post-folder', (event, folderName, folder) => {
 	});
 });
 
-ipcMain.once('delete-folder', (event, folderWillBeDeleted, folder) => {
-	const folderId = folderWillBeDeleted._id;
+ipcMain.on('get-folder', async (event, folderId) => {
+	console.log(folderId);
+	let folder;
+	await axios.getFolder(folderId).then((e) => {
+		folder = e.data;
+	});
+	win.webContents.send('receive-folder', folder);
+});
+
+ipcMain.once('delete-folder', (event, folderId, folder) => {
 	let listNestedFolder = folder.nested_folders;
 	const newListNestedFolder = helper.deleteArrayByValue(
 		listNestedFolder,
 		folder
 	);
 
-	let listFolder;
-	let undiscovered;
-
-	helper.getListFolders(folderId, listFolder, undiscovered, () => {
-		const listItemId = helper.getListItem(listFolder);
-		for (const i in listItemId) {
-			axios.deleteItem(listItemId[i]).then(() => {
-				helper.deleteItem(listItemId[i]);
-			});
-		}
-	});
+	//TODO create backend to delete folder and nested folders
+	//TODO create backend to delete listed items
 
 	folder.nested_folders = newListNestedFolder;
 	updateFolder(folder);
