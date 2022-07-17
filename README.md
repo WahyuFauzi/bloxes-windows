@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Portfolio from Wahyu, inspired from cloud service
+
+this app run using electronjs and react
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -32,3 +36,9 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Before running the frontend, please start the backend first.
 
 `https://github.com/WahyuFauzi/bloxes-itemdb`
+
+and then run script
+
+### `npm run electron:serve`
+
+to start electron app
