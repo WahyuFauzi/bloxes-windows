@@ -65,7 +65,7 @@ export default function Header() {
 				data-item-type="file"
 				data-item-id={i._id}
 			>
-				<Document className="w-full h-full" color="gray" />
+				<Document className="w-24 h-36" color="gray" />
 				<p className="w-full text-center">{i.item_name}</p>
 			</div>
 		);
@@ -87,7 +87,7 @@ export default function Header() {
 					});
 				}}
 			>
-				<Folder className="w-full h-full" color="gray" />
+				<Folder className="w-24 h-36" color="gray" />
 				<p className="w-full text-center">{j.folder_name}</p>
 			</div>
 		);
@@ -155,7 +155,7 @@ export default function Header() {
 			</button>
 			<div
 				//style={{ position: 'relative', zIndex: '1' }}
-				className="select-none flex"
+				className="select-none flex flex-wrap"
 			>
 				{folderList}
 				{fileList}

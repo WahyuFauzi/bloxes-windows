@@ -4,20 +4,17 @@ import Files from './components/files/Files';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import FrontEndHelper from './misc/FrontEndHelper';
-import './App.css';
 import { setUser } from './redux/userSlice';
 import { addPath, setFolder } from './redux/currentSlice';
+import './App.css';
 
 const helper = new FrontEndHelper();
-
-//TODO improve using async function
 
 function App() {
 	const dispatch = new useDispatch();
 	helper.getUserData((e) => dispatch(setUser(e)));
 	helper.setFolderInit((e) => {
 		dispatch(setFolder(e));
-		console.log(e._id);
 		dispatch(addPath(e._id));
 	});
 

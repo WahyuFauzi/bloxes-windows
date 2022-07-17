@@ -94,8 +94,6 @@ ipcMain.on('delete-item', (event, folder, itemId) => {
 	axios.deleteItem(itemId).then(() => {
 		helper.deleteItem(itemId);
 	});
-
-	////TODO update folder
 	folder.items = newListItem;
 	updateFolder(folder);
 });
@@ -106,8 +104,6 @@ ipcMain.once('post-folder', (event, folderName, folder) => {
 			_id: e.data._id,
 			folder_name: e.data.folder_name,
 		};
-
-		//TODO update folder
 		folder.nested_folders.push(newFolder);
 		updateFolder(folder);
 	});
@@ -129,8 +125,7 @@ ipcMain.once('delete-folder', (event, folderId, folder) => {
 		folder
 	);
 
-	//TODO create backend to delete folder and nested folders
-	//TODO create backend to delete listed items
+	axios.deleteFolder(folderId);
 
 	folder.nested_folders = newListNestedFolder;
 	updateFolder(folder);

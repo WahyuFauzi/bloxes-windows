@@ -31,7 +31,6 @@ export default class FrontEndHelper {
 	}
 
 	async setCurrentFolder(folderId, callback) {
-		//console.log(`path is ${folder._id}`);
 		window.api.getFolder(folderId);
 		window.api.receiveFolder((event, value) => {
 			callback(value);
