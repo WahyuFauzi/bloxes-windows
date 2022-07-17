@@ -1,4 +1,4 @@
-# Portfolio from Wahyu, inspired from cloud service
+# Portfolio from Wahyu, inspired from cloud storage service
 
 this app run using electronjs and react
 
