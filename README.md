@@ -2,6 +2,19 @@
 
 this app run using electronjs and react
 
+## How to start?
+
+Before running the frontend, please start the backend first.
+
+`https://github.com/WahyuFauzi/bloxes-itemdb` for using nestjs(express)
+`https://github.com/WahyuFauzi/bloxes-itemdb-spring` if you prefer using spring(kotlin)
+
+and then run script
+
+### `npm run electron:serve`
+
+to start electron app
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -32,13 +45,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-Before running the frontend, please start the backend first.
-
-`https://github.com/WahyuFauzi/bloxes-itemdb`
-
-and then run script
-
-### `npm run electron:serve`
-
-to start electron app
