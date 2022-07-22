@@ -1,5 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
+// TODO set to use only one channel
+
 contextBridge.exposeInMainWorld('api', {
 	init: () => ipcRenderer.send('init'),
 

@@ -11,7 +11,7 @@ import './Files.css';
 
 const helper = new FrontEndHelper();
 
-//TODO improve readibility
+// TODO change from callback to promise
 
 export default function Header() {
 	const currentFolder = useSelector((state) => state.current.currentFolder);

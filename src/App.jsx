@@ -10,6 +10,9 @@ import './App.css';
 
 const helper = new FrontEndHelper();
 
+// TODO change from callback to promise
+// TODO change from javascript to typescript
+
 function App() {
 	const dispatch = new useDispatch();
 	helper.getUserData((e) => dispatch(setUser(e)));

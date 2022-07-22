@@ -6,6 +6,8 @@ import { setFolder } from '../../redux/currentSlice';
 
 const helper = new FrontEndHelper();
 
+// TODO change from callback to promise
+// TODO modularize the component
 export default function FilesContextMenu(props) {
 	const renderCondition = useSelector((state) => state.context.renderCondition);
 	const renderContext = useSelector((state) => state.context.renderContext);
